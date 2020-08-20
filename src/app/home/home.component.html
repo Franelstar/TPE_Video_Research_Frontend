@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="row mt-5">
+      <div class="col-md-2">
+
+      </div>
+      <div class="col-md">
+        <div class="container">
+          <div class="row border border-info p-2 m-1" *ngFor="let scene of resultat">
+            <div class="col-sm-4">
+              <img [src]="scene.image_url" style="width: 107%; height: auto;" class="z-depth-3 rounded-sm d-flex align-self-center mr-3" alt="100x100">
+            </div>
+            <div class="col-sm">
+              <p class="mb-1"><span class="font-weight-normal">Video title : </span> <span class="blue-text"> {{ scene.nom_video }}</span></p>
+              <p class="mb-1"><span class="font-weight-normal">Video number : </span> <span class="blue-text"> {{ scene.num_scene }}</span></p>
+              <p class="mb-1"><span class="font-weight-normal">Scene duration : </span> <span class="blue-text"> {{ scene.duree_scene }} secondes</span></p>
+              <p class="mb-1"><span class="font-weight-normal">Scene type 1 : </span> <span class="blue-text"> {{ scene.type1 }} ({{ scene.proba_type2 * 100 | number:'2.1-3' }} %)</span></p>
+              <p class="mb-1"><span class="font-weight-normal">Scene type 2 : </span> <span class="blue-text"> {{ scene.type2 }} ({{ scene.proba_type2 * 100 | number:'2.1-3' }} %)</span></p>
+              <p class="mb-1"><span class="font-weight-normal">Scene objets : </span> <span class="blue-text"> Indéfini</span></p>
+              <p class="mb-1"><span class="font-weight-normal">Number of persons : </span> <span class="blue-text"> 0</span></p>
+              <p class="mb-1"><span class="font-weight-normal">Scene duration : </span> <span class="blue-text"> {{ scene.duree_scene }} ({{ scene.proba_type2 * 100 | number:'2.1-3' }} %)</span></p>
+            </div>
+            <div class="col-sm-3">
+              <div class="row text-center">
+                <h5 class="blue-text text-center">
+                  <strong>List of objects</strong>
+                </h5>
+              </div>
+              <div class="row overflow-auto" style="max-height: 110px;">
+                <mdb-badge primary="true" class="text-wrap" style="margin: 5px" *ngFor="let objet of scene[i].liste_objets">
+                  {{ objet.nom_objet }} ({{ objet.proba * 100 | number:'2.1-3' }}%)
+                </mdb-badge>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+
+      </div>
+    </div>
+  </div>
+</div>

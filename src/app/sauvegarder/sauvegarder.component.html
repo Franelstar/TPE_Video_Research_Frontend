@@ -1,0 +1,93 @@
+<div style="text-align:center; margin-top: 100px;" *ngIf="!etape4">
+
+  <div *ngIf="etape2" style="text-align:center">
+    <button mdbBtn type="button" gradient="blue" rounded="true" mdbWavesEffect (click)="onClick()" style="display: inline-block;">
+      <mdb-icon fas icon="upload" size="2x"></mdb-icon><br>
+        Upload
+    </button>
+    <input [disabled]="etape1" type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept="video/avi,video/mp4,video/*,.avi" style="display:none;" />
+  </div>
+
+  <div class="spinner-border text-primary" style="width: 5rem; height: 5rem;" role="status" *ngIf="etape3">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+  <mat-card-content style="margin-top: 60px;">
+    <ul>
+      <li *ngFor="let file of files">
+        <mat-progress-bar [value]="file.progress"></mat-progress-bar>
+        <span id="file-label"></span>
+      </li>
+    </ul>
+  </mat-card-content>
+
+  <p class="text-center text-danger mt-5" role="alert">
+    {{ messageErreur }}
+  </p>
+
+</div>
+
+<div class="container" *ngIf="etape4">
+  <div class="text-center">
+    <div class="alert alert-success text-center container mb-5" role="alert">
+      {{ video.Success }}
+    </div>
+    <mdb-card>
+      <mdb-card-body class="text-center">
+        <mdb-card-title>
+          <h4 class="mb-3">Video informations</h4>
+        </mdb-card-title>
+        <mdb-card-text>
+          <p><span class="text-uppercase">File name<br> </span> <span class="font-weight-bold text-primary"> {{ video.titre }}</span></p>
+          <p><span class="text-uppercase">Video duration<br> </span> <span class="font-weight-bold text-primary"> {{ video.duree_str }}</span></p>
+          <p><span class="text-uppercase">Number of frames<br>  </span> <span class="font-weight-bold text-primary"> {{ video.nbre_frame }}</span></p>
+          <p><span class="text-uppercase">Number of scenes<br>  </span> <span class="font-weight-bold text-primary"> {{ video.nbre_scene }}</span></p>
+        </mdb-card-text>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md">
+      <div class="container">
+        <div class="row border border-info p-2 m-1" *ngFor="let scene of resultat; index as i">
+          <div class="col-sm-4">
+            <img [src]="scene[i].image" style="width: 107%; height: auto;" class="z-depth-3 rounded-sm d-flex align-self-center mr-3" alt="100x100">
+          </div>
+          <div class="col-sm">
+            <p class="mb-1"><span class="font-weight-normal">Scene Number : </span> <span class="blue-text"> {{ scene[i].num }}</span></p>
+            <p class="mb-1"><span class="font-weight-normal">Scene type : </span> <span class="blue-text"> {{ scene[i].scene_lieu }} ({{ scene[i].proba * 100 | number:'2.1-3' }} %)</span></p>
+            <p class="mb-1"><span class="font-weight-normal">Duration (in seconds) : </span> <span class="blue-text"> {{ scene[i].duree }}</span></p>
+            <p class="mb-1"><span class="font-weight-normal">Number of frames : </span> <span class="blue-text"> {{ scene[i].nbre_frame }}</span></p>
+            <p class="mb-1"><span class="font-weight-normal">Number of persons : </span> <span class="blue-text"> 0</span></p>
+          </div>
+          <div class="col-sm-3">
+            <div class="row text-center">
+              <h5 class="blue-text text-center">
+                <strong>List of objects</strong>
+              </h5>
+            </div>
+            <div class="row overflow-auto" style="max-height: 110px;">
+              <mdb-badge primary="true" class="text-wrap" style="margin: 5px" *ngFor="let objet of scene[i].liste_objets">
+                {{ objet.nom_objet }} ({{ objet.proba * 100 | number:'2.1-3' }}%)
+              </mdb-badge>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <button mdbBtn type="button" gradient="blue" rounded="true" mdbWavesEffect (click)="ngOnInit()" style="display: inline-block;">
+      Continue
+    </button>
+  </div>
+
+</div>
