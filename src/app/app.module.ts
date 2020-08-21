@@ -26,6 +26,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HomeComponent } from './home/home.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { InputFileConfig, InputFileModule } from 'ngx-input-file';
+import { ModalComponent } from './modal/modal.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -43,7 +44,8 @@ const config: InputFileConfig = {};
     FooterComponent,
     FilterPipe,
     SauvegarderComponent,
-    HomeComponent
+    HomeComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

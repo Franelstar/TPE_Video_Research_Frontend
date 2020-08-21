@@ -10,6 +10,7 @@ import {catchError, retry, map} from 'rxjs/operators';
 export class ApiServiceService {
 
   private subject = new Subject<any>();
+  private subjectUrl = new Subject<any>();
 
   constructor(private http: HttpClient) { }
 
@@ -44,6 +45,14 @@ export class ApiServiceService {
 
   emitSearch(): Observable<any>{
     return this.subject.asObservable();
+  }
+
+  emitUrl(): Observable<any>{
+    return this.subjectUrl.asObservable();
+  }
+
+  setUrl(url: string): void {
+    this.subjectUrl.next({ url: url});
   }
 
 }
