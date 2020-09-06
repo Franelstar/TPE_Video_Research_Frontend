@@ -57,12 +57,13 @@
           <div class="col-sm-4">
             <img [src]="scene[i].image" style="width: 107%; height: auto;" class="z-depth-3 rounded-sm d-flex align-self-center mr-3" alt="100x100">
           </div>
-          <div class="col-sm">
-            <p class="mb-1"><span class="font-weight-normal">Scene Number : </span> <span class="blue-text"> {{ scene[i].num }}</span></p>
-            <p class="mb-1"><span class="font-weight-normal">Scene type : </span> <span class="blue-text"> {{ scene[i].scene_lieu }} ({{ scene[i].proba * 100 | number:'2.1-3' }} %)</span></p>
-            <p class="mb-1"><span class="font-weight-normal">Duration (in seconds) : </span> <span class="blue-text"> {{ scene[i].duree }}</span></p>
-            <p class="mb-1"><span class="font-weight-normal">Number of frames : </span> <span class="blue-text"> {{ scene[i].nbre_frame }}</span></p>
-            <p class="mb-1"><span class="font-weight-normal">Number of persons : </span> <span class="blue-text"> 0</span></p>
+          <div class="col-sm-5">
+            <p class="mb-0 text-truncate" style="font-size:14px"><span class="font-weight-normal">Scene Number : </span> <span class="blue-text"> {{ scene[i].num }}</span></p>
+            <p class="mb-0 text-truncate" style="font-size:14px"><span class="font-weight-normal">Scene type1 : </span> <span class="blue-text"> {{ scene[i].scene_lieu_2 }} ({{ scene[i].proba_2 * 100 | number:'2.1-3' }} %)</span></p>
+            <p class="mb-0 text-truncate" style="font-size:14px"><span class="font-weight-normal">Scene type2 : </span> <span class="blue-text"> {{ scene[i].scene_lieu }} ({{ scene[i].proba * 100 | number:'2.1-3' }} %)</span></p>
+            <p class="mb-0 text-truncate" style="font-size:14px"><span class="font-weight-normal">Duration : </span> <span class="blue-text"> {{ scene[i].duree }} seconds</span></p>
+            <p class="mb-0 text-truncate" style="font-size:14px"><span class="font-weight-normal">Number of frames : </span> <span class="blue-text"> {{ scene[i].nbre_frame }}</span></p>
+            <p class="mb-0 text-truncate" style="font-size:14px"><span class="font-weight-normal">Number of persons : </span> <span class="blue-text"> {{ scene[i].nbre_person }}</span></p>
           </div>
           <div class="col-sm-3">
             <div class="row text-center">

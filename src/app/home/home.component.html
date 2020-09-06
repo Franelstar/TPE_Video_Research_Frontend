@@ -1,11 +1,22 @@
 <div class="container">
+  <div class="container text-center">
+    <p class="text-danger mt-5" style="font-size: 2em;">{{ resultat_error }}</p>
+  </div>
+
+  <div class="container text-center">
+    <p class="text-success mt-5" style="font-size: 2em;">{{ resultat_vide }}</p>
+  </div>
+
   <div class="row">
-    <div class="row mt-5">
+    <div class="row">
       <div class="col-md-1">
 
       </div>
       <div class="col-md">
         <div class="container">
+
+          <p *ngIf="resultat" class="blue-grey-text text-left text-monospace">{{ resultat_total }} results found</p>
+
           <div class="row border border-info p-2 m-2 mt-3" *ngFor="let scene of resultat">
             <p>
               <a class="text-decoration-none text-danger success-lighter-hover" href="#">
@@ -16,16 +27,16 @@
               <div class="row">
                 <div class="col-sm-4 text-center view overlay zoom">
                   <img [src]="scene.image_url" style="width: 107%; height: auto;" class="pointer img-fluid z-depth-2 rounded-sm d-flex align-self-center mr-3" alt="100x100">
-                  <div class="mask flex-center rgba-white-light pointer" (click)="openModal(scene.scene_url, scene.nom_video)">
-                    <p class="black-text">Enrégistré le {{ scene.date_save | date }}</p>
+                  <div class="mask flex-center rgba-white-light pointer" (click)="openModal(scene.scene_url, scene.nom_video, scene.num_scene, scene.duree_scene, scene.nom_type1, scene.nom_type2, scene.nbre_person)">
+                    <p class="black-text">Save at {{ scene.date_save | date }}</p>
+                  </div>
                 </div>
-                </div>
-                <div class="col-sm m-2">
-                  <p class="mb-1"><span class="font-weight-normal">Scene number : </span> <span class="text-info success-lighter-hover"> {{ scene.num_scene }}</span></p>
-                  <p class="mb-1"><span class="font-weight-normal">Scene duration : </span> <span class="text-info success-lighter-hover"> {{ scene.duree_scene }} secondes</span></p>
-                  <p class="mb-1"><span class="font-weight-normal">Scene type 1 : </span> <span class="text-info success-lighter-hover"> {{ scene.nom_type1 }} ({{ scene.proba_type2 * 100 | number:'2.1-3' }} %)</span></p>
-                  <p class="mb-1"><span class="font-weight-normal">Scene type 2 : </span> <span class="text-info success-lighter-hover"> {{ scene.nom_type2 }} ({{ scene.proba_type2 * 100 | number:'2.1-3' }} %)</span></p>
-                  <p class="mb-1"><span class="font-weight-normal">Number of persons : </span> <span class="text-info success-lighter-hover"> 0</span></p>
+                <div class="col-sm-5 mt-3">
+                  <p class="mb-0 text-truncate" style="font-size:15px"><span class="font-weight-normal">Scene number : </span> <span class="blue-text success-lighter-hover"> {{ scene.num_scene }}</span></p>
+                  <p class="mb-0 text-truncate" style="font-size:15px"><span class="font-weight-normal">Scene duration : </span> <span class="blue-text success-lighter-hover"> {{ scene.duree_scene }} seconds</span></p>
+                  <p class="mb-0 text-truncate" style="font-size:15px"><span class="font-weight-normal">Scene type 1 : </span> <span class="blue-text success-lighter-hover"> {{ scene.nom_type1 }} ({{ scene.proba_type1 * 100 | number:'2.1-3' }} %)</span></p>
+                  <p class="mb-0 text-truncate" style="font-size:15px"><span class="font-weight-normal">Scene type 2 : </span> <span class="blue-text success-lighter-hover"> {{ scene.nom_type2 }} ({{ scene.proba_type2 * 100 | number:'2.1-3' }} %)</span></p>
+                  <p class="mb-0 text-truncate" style="font-size:15px"><span class="font-weight-normal">Number of persons : </span> <span class="blue-text success-lighter-hover"> {{ scene.nbre_person }}</span></p>
                 </div>
                 <div class="col-sm-3">
                   <div class="row text-center">
@@ -42,6 +53,21 @@
               </div>
             </div>
           </div>
+
+          <nav aria-label="Page navigation example mt-5" *ngIf="resultat">
+            <ul class="pagination pagination-circle pg-blue justify-content-center">
+              <li [ngClass]="{'page-item': true, 'disabled': !preview.active}">
+                <a class="page-link" mdbWavesEffect (click)="callPage(preview.page)">Previous</a>
+              </li>
+              <li [ngClass]="{'page-item': true, 'active': pag.active}" *ngFor="let pag of list_page">
+                <a class="page-link" (click)="callPage(pag.page)" mdbWavesEffect>{{ pag.page }}<span *ngIf="pag.active" class="sr-only">(current)</span></a>
+              </li>
+              <li [ngClass]="{'page-item': true, 'disabled': !next.active}">
+                <a class="page-link" mdbWavesEffect (click)="callPage(next.page)">Next</a>
+              </li>
+            </ul>
+          </nav>
+
         </div>
       </div>
       <div class="col-md-1">
@@ -49,4 +75,11 @@
       </div>
     </div>
   </div>
+
+  <div class="container text-center">
+    <div class="spinner-border text-primary mt-5" style="width: 10rem; height: 10rem;" role="status" *ngIf="charge">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
 </div>

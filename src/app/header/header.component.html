@@ -5,27 +5,26 @@
   <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar white">
     <!-- Navbar brand -->
     <mdb-navbar-brand>
-      <mdb-icon fas icon="heart" size="2x" class="amber-text animate__pulse animate__infinite animate__animated"></mdb-icon>
+      <img [src]="url_logo" style="width: 30px; height: auto;margin-top: -10px;" class="amber-text animate__shake animate__infinite animate__animated" alt="logo">
       <a class="navbar-brand amber-text" >SearchDeo</a>
     </mdb-navbar-brand>
     <links style="text-align: center;display: inline-block;">
 
       <!-- Search form -->
       <form class="md-form" *ngIf="etatHeader">
-        <mdb-icon fas icon="search" aria-hidden="true"></mdb-icon>
-        <input type="search" placeholder="Rechercher">
-        <button type="button" mdbBtn color="primary" size="sm" mdbWavesEffect>Search</button>
+        <input type="search" placeholder="Search ..." name="search" [(ngModel)]="value_search">
+        <button type="button" mdbBtn color="primary" size="sm" mdbWavesEffect (click)="chercher_text()">Search</button>
 
         <div class="btn-group" mdbDropdown style="margin-left: 15px;margin-top: 2px;">
-          <a mdbDropdownToggle mdbWavesEffect type="button" class="waves-light" mdbWavesEffect
-             style="height: auto;">
-             <mdb-icon fas icon="align-justify" size="2x" class="primary-text pr-3" aria-hidden="true"></mdb-icon>
+          <a mdbWavesEffect type="button" class="waves-light" style="height: auto;" (click)="test.toggle()">
+            <mdb-icon fas icon="sliders-h" size="2x" class="text-info pr-3"></mdb-icon>
           </a>
-          <div class="dropdown-menu dropdown-primary animate__zoomIn animate__animated" style="margin-top: 5px;">
-            <a class="dropdown-item" (click)="test.toggle()" style="padding: 0.25rem 1.5rem !important;">Settings</a>
-            <div class="divider dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['sauvegarder']" style="padding: 0.25rem 1.5rem !important;">Save</a>
-          </div>
+        </div>
+
+        <div class="btn-group" mdbDropdown style="margin-left: 15px;margin-top: 2px;">
+          <a mdbWavesEffect type="button" class="waves-light" style="height: auto;" [routerLink]="['sauvegarder']" (click)="test.hide()">
+            <mdb-icon far icon="save" size="2x" class="text-info pr-3"></mdb-icon>
+          </a>
         </div>
       </form>
 
@@ -49,9 +48,6 @@
           [settings]="dropdownSettingsScenes"
           [data]="dropdownListScenes"
           [(ngModel)]="selectedItemsScenes"
-          (onSelect)="onItemSelectScene($event)"
-          (onSelectAll)="onSelectAllScene($event)"
-          (onDeSelect)="onDeSelectScene($event)"
         >
         </ng-multiselect-dropdown>
       </div>
@@ -62,15 +58,12 @@
           [settings]="dropdownSettingsObjets"
           [data]="dropdownListObjets"
           [(ngModel)]="selectedItemsObjets"
-          (onSelect)="onItemSelectObjet($event)"
-          (onSelectAll)="onSelectAllObjet($event)"
-          (onDeSelect)="onDeSelectObjet($event)"
         >
         </ng-multiselect-dropdown>
       </div>
 
-      <div class="col-sm-3 mt-5">
-        <button class="float-right" [routerLink]="['']" type="button" mdbBtn color="primary" size="sm" mdbWavesEffect (click)="postsearch()">Search</button>
+      <div class="col-sm-3 mt-5 text-center">
+        <button class="" [routerLink]="['']" type="button" mdbBtn color="primary" size="sm" mdbWavesEffect (click)="postsearch()">Search</button>
       </div>
     </div>
   </div>

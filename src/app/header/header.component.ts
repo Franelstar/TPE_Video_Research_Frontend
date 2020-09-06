@@ -1,10 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, empty } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { HeaderService } from '../service/header.service';
-import { CollapseComponent } from 'angular-bootstrap-md';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ApiServiceService } from '../service/api-service.service';
-import { InputFile } from 'ngx-input-file';
 
 @Component({
   selector: 'app-header',
@@ -22,9 +19,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   file: File;
 
+  value_search = "";
+
   etatHeader: boolean;
   subscription: Subscription;
   subscription_params: Subscription;
+
+  url_logo = "assets/images/logo.jpeg";
 
   constructor(private headerService: HeaderService, private apiServiceService: ApiServiceService) { }
 
@@ -66,30 +67,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   recherche(): void {
     this.headerService.setStatusHeader(true);
-  }
 
-  onItemSelectObjet(item: any) {
-    console.log(item);
-  }
+    this.subscription_params = this.apiServiceService.getParams().subscribe((rep: any) => {
+      // console.log(rep);
+      if(typeof(rep.scenes) === 'object') {
+        this.dropdownListScenes = [];
 
-  onSelectAllObjet(items: any) {
-    console.log(items);
-  }
+        for(var i in rep.scenes){
+          this.dropdownListScenes.push({ item_id: i, item_text: rep.scenes[i] });
+        }
+      }
 
-  onDeSelectObjet(items: any) {
-    console.log(items);
-  }
+      if(typeof(rep.objets) === 'object') {
+        this.dropdownListObjets = [];
 
-  onItemSelectScene(item: any) {
-    console.log(this.selectedItemsScenes);
-  }
-
-  onSelectAllScene(items: any) {
-    console.log(this.selectedItemsScenes);
-  }
-
-  onDeSelectScene(items: any) {
-    console.log(this.selectedItemsScenes);
+        for(var i in rep.objets){
+          this.dropdownListObjets.push({ item_id: i, item_text: rep.objets[i] });
+        }
+      }
+    }, (err: any) => {
+      console.log('erreur');
+    });
   }
 
   getParams(): void {
@@ -136,6 +134,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     formData.append('objets', list_objets);
 
     this.apiServiceService.getSearch(formData);
+  }
+
+  chercher_text(): void {
+    const formData = new FormData();
+    formData.append('search', this.value_search);
+    this.apiServiceService.getSearchText(formData);
   }
 
 }

@@ -26,16 +26,6 @@ export class SauvegarderComponent implements OnInit {
   constructor(private apiServiceService: ApiServiceService, private headerSerice: HeaderService) { }
 
   ngOnInit(): void {
-    /* this.apiServiceService.postVideo().subscribe(
-      (res: any) => {
-        // Store the access token in the localstorage
-        console.log(res);
-      }, (err: any) => {
-        // This error can be internal or invalid credentials
-        // You need to customize this based on the error.status code
-        console.log(err);
-      }); */
-
     this.headerSerice.setStatusHeader(false);
     this.etape1 = false;
     this.etape2 = true;
@@ -76,7 +66,6 @@ export class SauvegarderComponent implements OnInit {
         return of(`${file.data.name} upload failed.`);
       })).subscribe((rep: any) => {
         if (typeof (rep) === 'object') {
-          console.log(rep.body);
           if (typeof (rep.body[0].Erreur) !== 'undefined') {
             file.inProgress = false;
             this.messageErreur = rep.body[0].Erreur;
@@ -87,7 +76,6 @@ export class SauvegarderComponent implements OnInit {
           } else {
             this.resultat = rep.body[0].scenes;
             this.video = rep.body[0].video;
-            console.log(this.video);
             this.etape4 = true;
           }
         }
