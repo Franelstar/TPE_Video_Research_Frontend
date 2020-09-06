@@ -6,7 +6,7 @@ Application frontend de recherche de vidéos et de scènes par le contenu. Le se
 - HTML
 - CSS
 
-# Librairie
+# Framework
 Angular 10
 
 # Captures
